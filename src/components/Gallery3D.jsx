@@ -6,7 +6,8 @@ import { TextureLoader, DoubleSide } from 'three';
 const images = [
   '/proj1.png',
   '/proj2.png',
-  '/proj3.png'
+  '/proj3.png',
+  '/proj4.png'
 ];
 
 const CarouselItem = ({ index, total, texture }) => {
