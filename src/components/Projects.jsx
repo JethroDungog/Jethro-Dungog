@@ -5,13 +5,14 @@ import { FaGithub } from 'react-icons/fa';
 const Projects = () => {
   const projects = [
     {
-      tag: "Active Implementation",
+      tag: "Local Deployment",
       tagClass: "tag-active",
       title: "Dealogikal Compliance AI",
       role: "AI Engineer @ Dealogikal",
-      description: "Developing Multi-Modal Agentic RAG (Retrieval-Augmented Generation) System for Regulatory Compliance. Specialized in optimizing vector embeddings and data-grounding pipelines.",
+      description: "An automation website RAG (Retrieval-Augmented Generation) system. Deployed completely locally.",
       icons: [<Code2 size={18}/>, <Database size={18}/>, <Network size={18}/>, <Brain size={18}/>],
-      link: null
+      link: null,
+      image: "/proj1.png"
     },
     {
       tag: "Capstone Leadership",
@@ -20,7 +21,8 @@ const Projects = () => {
       role: "Project Manager",
       description: "Leading the end-to-end strategy for an intelligent programming plagiarism checker. Coordinating development sprints and system validation across the team.",
       icons: [<Users size={18}/>, <Network size={18}/>],
-      link: { url: "https://github.com/JethroDungog", icon: <FaGithub size={18}/> }
+      link: { url: "https://github.com/JethroDungog", icon: <FaGithub size={18}/> },
+      image: "/proj2.png"
     },
     {
       tag: "Client Solution",
@@ -29,7 +31,8 @@ const Projects = () => {
       role: "Web Developer",
       description: "Designed and deployed a professional business portfolio for a signage making firm. Integrated a seamless Gmail-based inquiry system for lead generation.",
       icons: [<Monitor size={18}/>, <Mail size={18}/>, <Paintbrush size={18}/>],
-      link: { url: "https://foraellaandemman01-ui.github.io/FOR-AELLA-EMMAN/", icon: <ExternalLink size={18}/> }
+      link: { url: "https://foraellaandemman01-ui.github.io/FOR-AELLA-EMMAN/", icon: <ExternalLink size={18}/> },
+      image: "/proj3.png"
     },
     {
       tag: "Local Deployment",
@@ -59,6 +62,11 @@ const Projects = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
           >
+            {project.image && (
+              <div className="project-image-wrapper">
+                <img src={project.image} alt={project.title} className="project-image" />
+              </div>
+            )}
             <span className={`card-tag ${project.tagClass}`}>{project.tag}</span>
             <h3>
               {project.title}
