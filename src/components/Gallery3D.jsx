@@ -1,0 +1,122 @@
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { TextureLoader, DoubleSide } from 'three';
+
+// Images array pointing to the public folder
+const images = [
+  '/proj1.png',
+  '/proj2.png',
+  '/proj3.png'
+];
+
+const CarouselItem = ({ index, total, texture }) => {
+  const meshRef = useRef(null);
+  const angle = (index / total) * Math.PI * 2;
+  
+  // Fade in effect
+  const [opacity, setOpacity] = useState(0);
+  
+  useFrame(() => {
+    if (opacity < 1) {
+      setOpacity(prev => Math.min(prev + 0.05, 1));
+    }
+  });
+
+  return (
+    <mesh
+      ref={meshRef}
+      position={[Math.cos(angle) * 2.5, Math.sin(angle * 2) * 0.3, Math.sin(angle) * 2.5]}
+      rotation={[0, -angle + Math.PI / 2, 0]}
+    >
+      <planeGeometry args={[2.5, 1.5]} />
+      <meshStandardMaterial 
+        map={texture} 
+        roughness={0.3} 
+        metalness={0.2} 
+        transparent={true} 
+        opacity={opacity}
+        side={DoubleSide}
+      />
+    </mesh>
+  );
+};
+
+const Carousel = () => {
+  const groupRef = useRef();
+  const textures = useLoader(TextureLoader, images);
+  
+  // Interaction state
+  const isDragging = useRef(false);
+  const previousPointer = useRef({ x: 0, y: 0 });
+  const velocity = useRef({ x: 0, y: 0 });
+
+  useFrame(() => {
+    if (groupRef.current) {
+      // Auto rotation + drag velocity
+      groupRef.current.rotation.y += 0.002 + velocity.current.x * 0.1;
+      // Pitch adjustment based on vertical drag
+      groupRef.current.rotation.x += (velocity.current.y * 0.5 - groupRef.current.rotation.x) * 0.1;
+      
+      // Damping
+      velocity.current.x *= 0.95;
+      velocity.current.y *= 0.95;
+    }
+  });
+
+  const handlePointerDown = (e) => {
+    isDragging.current = true;
+    previousPointer.current = { x: e.clientX, y: e.clientY };
+    e.target.setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging.current) return;
+    const deltaX = e.clientX - previousPointer.current.x;
+    const deltaY = e.clientY - previousPointer.current.y;
+    velocity.current.x += deltaX * 0.01;
+    velocity.current.y += deltaY * 0.01;
+    previousPointer.current = { x: e.clientX, y: e.clientY };
+  };
+
+  const handlePointerUp = (e) => {
+    isDragging.current = false;
+    e.target.releasePointerCapture(e.pointerId);
+  };
+
+  return (
+    <group 
+      ref={groupRef}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+    >
+      {textures.map((texture, i) => (
+        <CarouselItem key={i} index={i} total={textures.length} texture={texture} />
+      ))}
+    </group>
+  );
+};
+
+const Gallery3D = () => {
+  return (
+    <section id="gallery">
+      <span className="section-label">Interactive 3D Gallery</span>
+      <h2 className="section-title">DRAG TO <span className="gradient-text">EXPLORE</span></h2>
+      <div id="three-canvas-container">
+        <Canvas camera={{ position: [0, 0, 5], fov: 55, near: 0.1, far: 100 }}>
+          <ambientLight intensity={0.4} color="#ffffff" />
+          <directionalLight position={[5, 5, 5]} intensity={0.8} color="#ffffff" />
+          <pointLight position={[-3, 2, 2]} intensity={1.5} distance={10} color="#2dd4bf" />
+          <pointLight position={[3, -2, 2]} intensity={1.2} distance={10} color="#a855f7" />
+          
+          <React.Suspense fallback={null}>
+            <Carousel />
+          </React.Suspense>
+        </Canvas>
+      </div>
+    </section>
+  );
+};
+
+export default Gallery3D;
