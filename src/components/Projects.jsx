@@ -30,6 +30,15 @@ const Projects = () => {
       description: "Designed and deployed a professional business portfolio for a signage making firm. Integrated a seamless Gmail-based inquiry system for lead generation.",
       icons: [<Monitor size={18}/>, <Mail size={18}/>, <Paintbrush size={18}/>],
       link: { url: "https://foraellaandemman01-ui.github.io/FOR-AELLA-EMMAN/", icon: <ExternalLink size={18}/> }
+    },
+    {
+      tag: "Local Deployment",
+      tagClass: "tag-client",
+      title: "GT Dental Clinic",
+      role: "System Developer",
+      description: "Developed and deployed a completely localized Dental Clinic Management System. Engineered a 100% offline, highly readable application customized specifically for their daily business operations and record keeping.",
+      icons: [<Database size={18}/>, <Monitor size={18}/>],
+      link: null
     }
   ];
 
