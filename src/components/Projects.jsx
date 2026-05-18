@@ -20,7 +20,7 @@ const Projects = () => {
       role: "Project Manager",
       description: "Leading the end-to-end strategy for an intelligent programming plagiarism checker. Coordinating development sprints and system validation across the team.",
       icons: [<Users size={18}/>, <Network size={18}/>],
-      link: { url: "https://kidocode.com", icon: <ExternalLink size={18}/> }
+      link: { url: "https://kidocode.pro", icon: <ExternalLink size={18}/> }
     },
     {
       tag: "Client Solution",
