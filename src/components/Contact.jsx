@@ -30,7 +30,7 @@ const Contact = () => {
 
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "rgba(45, 212, 191, 0.5)";
+      ctx.fillStyle = "rgba(0, 102, 255, 0.5)";
       
       particles.forEach(p => {
         p.x += p.vx;

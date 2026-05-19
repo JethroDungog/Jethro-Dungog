@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { marked } from 'marked';
-import { Send, X, MessageCircle, User, Brain, Rocket, Mail } from 'lucide-react';
+import { Send, X, MessageCircle, User, Brain, Rocket, Mail, Bot } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 const AIChatbot = () => {
@@ -8,7 +8,7 @@ const AIChatbot = () => {
   const [messages, setMessages] = useState([
     {
       role: 'ai',
-      content: `**Hi! I am Ivan's AI dY\`<**\n\nYour interactive portfolio guide.`
+      content: `**Hi! I am Ivan's AI Assistant!**\n\nYour interactive portfolio guide.`
     }
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -89,8 +89,8 @@ const AIChatbot = () => {
         <div className="chatbot-window">
           <div className="chatbot-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div className="avatar">
-                <img src="/profile.png" alt="Ivan" onError={(e) => e.target.style.display='none'} />
+              <div className="avatar" style={{ background: 'rgba(0, 102, 255, 0.1)', borderColor: 'var(--primary)' }}>
+                <Bot size={16} color="var(--primary)" />
                 <div className="status-indicator"></div>
               </div>
               <div>
@@ -110,8 +110,8 @@ const AIChatbot = () => {
             {messages.map((msg, i) => (
               <div key={i} className={msg.role === 'ai' ? 'msg-ai' : 'msg-user'}>
                 {msg.role === 'ai' && (
-                  <div className="avatar">
-                    <img src="/profile.png" alt="Ivan" onError={(e) => e.target.style.display='none'} />
+                  <div className="avatar" style={{ background: 'rgba(0, 102, 255, 0.1)', borderColor: 'var(--primary)' }}>
+                    <Bot size={16} color="var(--primary)" />
                   </div>
                 )}
                 <div 
@@ -133,8 +133,8 @@ const AIChatbot = () => {
 
             {isTyping && (
               <div className="msg-ai">
-                <div className="avatar">
-                  <img src="/profile.png" alt="Ivan" onError={(e) => e.target.style.display='none'} />
+                <div className="avatar" style={{ background: 'rgba(0, 102, 255, 0.1)', borderColor: 'var(--primary)' }}>
+                  <Bot size={16} color="var(--primary)" />
                 </div>
                 <div className="bubble-ai" style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
                   <div className="status-dot" style={{ animationDelay: '0s' }}></div>
