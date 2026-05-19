@@ -64,16 +64,42 @@ const AIChatbot = () => {
     setInputValue('');
     setIsTyping(true);
 
+    // Retrieve Cloudflare URL from environment variables or a direct string
+    const CLOUDFLARE_WORKER_URL = import.meta.env.VITE_CLOUDFLARE_WORKER_URL || "https://strataenquiry.dungogjethro.workers.dev/";
+
+    // Only attempt fetch if the placeholder has been replaced
+    if (CLOUDFLARE_WORKER_URL && !CLOUDFLARE_WORKER_URL.includes("your-worker-name")) {
+      try {
+        const res = await fetch(CLOUDFLARE_WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: text,
+            history: messages.map(m => ({ role: m.role, content: m.content }))
+          })
+        });
+
+        if (!res.ok) throw new Error("Worker responded with error status");
+        const data = await res.json();
+        const response = data.response;
+
+        setIsTyping(false);
+        setMessages(prev => [...prev, { role: 'ai', content: response }]);
+        logToSupabase(text, response);
+        return;
+      } catch (err) {
+        console.warn("Cloudflare Worker failed. Falling back to local rules engine:", err);
+      }
+    }
+
+    // Local rules fallback (invoked if worker fails or URL is not yet configured)
     const response = getResponse(text);
-
-    // Log interaction to Supabase in the background
     logToSupabase(text, response);
-
-    // Simulate AI thinking delay
+    
     setTimeout(() => {
       setIsTyping(false);
       setMessages(prev => [...prev, { role: 'ai', content: response }]);
-    }, 1000);
+    }, 800);
   };
 
   const quickPrompts = [
