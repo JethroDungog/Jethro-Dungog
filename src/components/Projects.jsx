@@ -10,7 +10,7 @@ const Projects = () => {
       title: "Dealogikal Compliance AI",
       role: "AI Engineer @ Dealogikal",
       description: "Built a local automation RAG (Retrieval-Augmented Generation) system for regulatory compliance. Specialized in optimizing vector embeddings and data-grounding pipelines to power an intelligent document Q&A automation workflow.",
-      icons: [<Code2 size={18}/>, <Database size={18}/>, <Network size={18}/>, <Brain size={18}/>],
+      icons: [<Code2 size={18} />, <Database size={18} />, <Network size={18} />, <Brain size={18} />],
       link: null
     },
     {
@@ -19,8 +19,8 @@ const Projects = () => {
       title: "KODI CODE",
       role: "Project Manager",
       description: "Leading the end-to-end strategy for an intelligent programming plagiarism checker. Coordinating development sprints and system validation across the team.",
-      icons: [<Users size={18}/>, <Network size={18}/>],
-      link: { url: "https://kidocode.pro", icon: <ExternalLink size={18}/> }
+      icons: [<Users size={18} />, <Network size={18} />],
+      link: { url: "https://kodicode.pro", icon: <ExternalLink size={18} /> }
     },
     {
       tag: "Client Solution",
@@ -28,8 +28,8 @@ const Projects = () => {
       title: "Aella & Emman",
       role: "Web Developer",
       description: "Designed and deployed a professional business portfolio for a signage making firm. Integrated a seamless Gmail-based inquiry system for lead generation.",
-      icons: [<Monitor size={18}/>, <Mail size={18}/>, <Paintbrush size={18}/>],
-      link: { url: "https://foraellaandemman01-ui.github.io/FOR-AELLA-EMMAN/", icon: <ExternalLink size={18}/> }
+      icons: [<Monitor size={18} />, <Mail size={18} />, <Paintbrush size={18} />],
+      link: { url: "https://foraellaandemman01-ui.github.io/FOR-AELLA-EMMAN/", icon: <ExternalLink size={18} /> }
     },
     {
       tag: "Local Deployment",
@@ -37,7 +37,7 @@ const Projects = () => {
       title: "GT Dental Clinic",
       role: "System Developer",
       description: "Developed and deployed a completely localized Dental Clinic Management System. Engineered a 100% offline, highly readable application customized specifically for their daily business operations and record keeping.",
-      icons: [<Database size={18}/>, <Monitor size={18}/>],
+      icons: [<Database size={18} />, <Monitor size={18} />],
       link: null
     }
   ];
@@ -48,10 +48,10 @@ const Projects = () => {
         <span className="section-label">Selected Works</span>
         <h2 className="section-title">DEPLOYED <span className="gradient-text">SYSTEMS</span></h2>
       </div>
-      
+
       <div className="projects-grid">
         {projects.map((project, index) => (
-          <motion.div 
+          <motion.div
             key={index}
             className="project-card"
             initial={{ opacity: 0, y: 30 }}
@@ -65,7 +65,7 @@ const Projects = () => {
               <small>{project.role}</small>
             </h3>
             <p>{project.description}</p>
-            
+
             <div className="card-footer">
               <div className="tech-icons">
                 {project.icons.map((icon, i) => <span key={i}>{icon}</span>)}
